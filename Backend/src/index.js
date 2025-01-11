@@ -8,9 +8,12 @@ const app = express()
 // we stored our server port in a dotenv file
 const PORT = process.env.PORT
 
+app.use(express.json())
+
 app.use("/api/auth", authRoutes)
 
 app.listen(PORT, ()=>{
     console.log("Server is running on ", PORT)
+    //func connecting to mongoDB
     connectDB()
 })
