@@ -1,6 +1,7 @@
 import User from "../models/user.model.js"
 import Message from "../models/message.model.js"
 import cloudinary from "../lib/cloud_config.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 
 // getting all the users in the chat list
 export const getUsersForSideBar = async(req,res) =>{
@@ -65,6 +66,11 @@ export const sendMessage =  async (req,res) => {
         await newMessage.save()
 
         // todo: relatime messaging using socket.io
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+            // send to specific socket/user
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         res.status(201).json(newMessage)
     }
