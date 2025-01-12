@@ -60,6 +60,7 @@ export const signup = async (req, res) =>{
 // LOGIN-------------------------------------------------------------------------
 export const login = async (req, res) =>{
     const {email, password} = req.body
+    console.log("Login server route")
     try {
         //get the user data from db
         const user= await User.findOne({email})
@@ -108,12 +109,12 @@ export const updateProfile = async(req,res) =>{
         // get user fron protect middleware
         const {profilePic} = req.body
         const userId = req.user._id
-
+        
         if(!profilePic){
             return res.statue(400).json({message:"Profile pic is required"})
         }
         // upload profile pic to cloud
-        await cloudinary.uploader.upload(profilePic)
+        const uploadResponse = await cloudinary.uploader.upload(profilePic)
         // then add updated user to db since cloudinary is not our main db
         const updateUser = await User.findByIdAndUpdate(userId, {profilePic: uploadResponse.secure_url}, {new:true})
 
