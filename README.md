@@ -1,4 +1,5 @@
 # Real-Time Chat Application [Live link](https://real-time-chat-app-d7vu.onrender.com/login)
+Please give the live ink a few minutes to load, I am hosting on free-tier plan.
 
 This is a real-time chat application built with an **Express server**, **MongoDB** for database storage, **Cloudinary** for storing profile pictures, and **JWT** tokens for user authentication. The frontend is developed using **React**, styled with **Tailwind CSS** and **daisyUI**, and real-time communication is enabled through **Socket.IO**.
 
